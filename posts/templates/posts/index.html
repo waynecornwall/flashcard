@@ -3,4 +3,17 @@
 {% block title %} {{ page_title }} {% endblock title %}
 
 {% block content %}
+    <p><a href="{% url 'posts:add_term' %}">Add Term</a></p>
+    <ul>
+        {% for term in terms %}
+            <li><a href="{% url 'posts:definitions' term.id %}">{{ term.word }}</a></li>
+            <li>
+                <a href="{% url 'posts:edit_term' term.id %}">edit</a>
+                <a href="{% url 'posts:delete_term' term.id %}">delete</a>
+            </li>
+            <br>
+
+        {% endfor %}
+    </ul>
+
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Source, Term
+from .models import Source, Term, Definition
 # Register your models here.
 
 
@@ -13,15 +13,16 @@ class SourceAdmin(admin.ModelAdmin):
 
 @admin.register(Term)
 class TermAdmin(admin.ModelAdmin):
-    # term = Term()
-    # definition = term.definition
-    list_display = ('word', 'definition', 'source', 'ref_point')
-    list_filter = ('word', 'source')
+    list_display = ('word',)
+    list_filter = ('word',)
     ordering = ('word',)
-    search_fields = ('word', 'source')
+    search_fields = ('word',)
 
-    # def __str__(self):
-    #     if len(self.definition) > 30:
-    #         return self.definition[:30]
-    #     else:
-    #         return self.definition
+
+@admin.register(Definition)
+class DefinitionAdmin(admin.ModelAdmin):
+    list_display = ('definition', 'term', 'source', 'ref_point')
+    list_filter = ('term', 'source')
+    ordering = ('term',)
+    search_fields = ('term', 'source')
+

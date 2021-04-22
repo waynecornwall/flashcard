@@ -1,6 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
+class Term(models.Model):
+    word = models.CharField(max_length=200)
+    date_posted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.word
 
 
 class Source(models.Model):
@@ -12,15 +18,12 @@ class Source(models.Model):
         return self.title
 
 
-class Term(models.Model):
-    word = models.CharField(max_length=200)
-    definition = models.TextField()
+class Definition(models.Model):
+    definition = models.TextField(blank=True, null=True)
+    ref_point = models.IntegerField(blank=True, null=True)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE, null=True)
     source = models.ForeignKey(Source, on_delete=models.CASCADE)
-    ref_point = models.IntegerField(blank=True)
-    date_posted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        if len(self.definition) > 30:
-            return self.word, self.definition[:30]
-        else:
-            return self.word, self.definition
+        return self.definition
+

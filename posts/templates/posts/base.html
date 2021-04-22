@@ -7,7 +7,8 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
-
+<p><a href="{% url 'posts:sources' %}">Sources</a></p>
+<p><a href="{% url 'posts:index' %}">Terms</a></p>
 {% block content %}
 {% endblock content %}
 
