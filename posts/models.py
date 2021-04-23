@@ -1,9 +1,15 @@
 from django.db import models
 
 
+class TermManager(models.Manager):
+    def get_type_count(self, term_type):
+        return self.filter(word__icontains=term_type).count()
+
+
 class Term(models.Model):
     word = models.CharField(max_length=200)
     date_posted = models.DateTimeField(auto_now_add=True)
+    objects = TermManager()
 
     def __str__(self):
         return self.word

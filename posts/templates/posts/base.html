@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{% static 'posts/css/styles.css' %}">
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{{ page_title }}</title>
 </head>
 <body>
 <p><a href="{% url 'posts:sources' %}">Sources</a></p>

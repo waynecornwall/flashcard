@@ -11,13 +11,16 @@ MEDIA_TYPES = {
 
 def index(request):
     terms = Term.objects.all()
+    page_title = 'Homepage'
     context = {
-        'terms' : terms
+        'terms' : terms,
+        'page_title': page_title
     }
     return render(request, 'posts/index.html', context)
 
 
 def add_term(request):
+    page_title = 'Add a Term'
     if request.method != 'POST':
         form = TermForm()
     else:
@@ -25,13 +28,15 @@ def add_term(request):
         form.save()
         return redirect('posts:index')
     context = {
-        'form' : form
+        'form' : form,
+        'page_title': page_title
     }
     return render(request, 'posts/add_term.html', context)
 
 
 def edit_term(request, term_id):
     term = Term.objects.get(id=term_id)
+    page_title = f'Edit {term.word}'
     if request.method != 'POST':
         form = TermForm(instance=term)
     else:
@@ -40,31 +45,37 @@ def edit_term(request, term_id):
         return redirect('posts:index')
     context = {
         'term' : term,
-        'form' : form
+        'form' : form,
+        'page_title': page_title
     }
     return render(request, 'posts/edit_term.html', context)
 
 
 def delete_term(request, term_id):
     term = Term.objects.get(id=term_id)
+    page_title = f'Delete {term.word}'
     if request.method == 'POST':
         term.delete()
         return redirect('posts:index')
     context = {
-        'term' : term
+        'term' : term,
+        'page_title': page_title
     }
     return render(request, 'posts/delete_term.html', context)
 
 
 def sources(request):
     sources = Source.objects.order_by('title')
+    page_title = 'Sources'
     context = {
-        'sources' : sources
+        'sources' : sources,
+        'page_title': page_title
     }
     return render(request, 'posts/sources.html', context)
 
 
 def add_source(request):
+    page_title = f'Add a source'
     if request.method != 'POST':
         form = SourceForm()
     else:
@@ -72,7 +83,8 @@ def add_source(request):
         form.save()
         return redirect('posts:sources')
     context = {
-        'form' : form
+        'form' : form,
+        'page_title': page_title
     }
     return render(request, 'posts/add_source.html', context)
 
@@ -80,16 +92,19 @@ def add_source(request):
 def definitions(request, term_id):
     term = Term.objects.get(id=term_id)
     defs = term.definition_set.all()
+    page_title = f'{term.word} definitions'
     context = {
         'term' : term,
         'defs' : defs,
-        'MEDIA_TYPES' : MEDIA_TYPES
+        'MEDIA_TYPES' : MEDIA_TYPES,
+        'page_title': page_title
     }
     return render(request, 'posts/defs.html', context)
 
 
 def add_def(request, term_id):
     term = Term.objects.get(id=term_id)
+    page_title = 'Add a definition'
     if request.method != 'POST':
         form = DefinitionForm()
     else:
@@ -98,6 +113,7 @@ def add_def(request, term_id):
         return redirect('posts:definitions', term_id=term.id)
     context = {
         'form': form,
-        'term': term
+        'term': term,
+        'page_title' : page_title
     }
     return render(request, 'posts/add_def.html', context)
