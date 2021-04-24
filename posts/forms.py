@@ -25,9 +25,10 @@ class SourceForm(forms.ModelForm):
 class DefinitionForm(forms.ModelForm):
     class Meta:
         model = Definition
-        fields = ['definition', 'source', 'ref_point']
+        fields = ['definition', 'source', 'ref_point', 'term']
         labels = {
             'definition' : 'Definition',
             'ref_point' : 'Reference point',
-            'source' : 'Source'
+            'source' : 'Source',
+            'term' : 'Term'
         }

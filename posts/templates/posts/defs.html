@@ -17,6 +17,8 @@
                         {% endif %}
                     {% endfor %}
                 </p>
+                {% empty %}
+                <p>No {{ term.word.title }} definitions have been added yet</p>
             </div>
         {% endfor %}
     </ul>
